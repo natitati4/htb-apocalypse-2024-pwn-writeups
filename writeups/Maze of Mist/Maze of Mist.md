@@ -243,7 +243,7 @@ vdso_mem_parsed: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dy
 Let's run ROPgadget:
 
 ```
-└─$ ROPgadget --binary=vdso_mem > gadgets.txt
+└─$ ROPgadget --binary=vdso_mem_parsed > gadgets.txt
 ```
 
 Cat it and grep `ret`, so you'll only see gadgets ending in `ret`:
