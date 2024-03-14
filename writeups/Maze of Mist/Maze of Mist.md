@@ -6,6 +6,7 @@ leaving you stationary within the confines of your existence. Can you discover a
 I am assuming the reader has some experience in binary exploitation, specifically buffer overflow and ROP (return-oriented-programming).
 
 # TL;DR
+We use ROPgadgets from the `vdso` in order to execute `execve("/bin/sh", argv=["/bin/sh", NULL], NULL)`. We need "/bin/sh" in argv[0] because "/bin/sh" is a symlink to `busybox`, and `busybox`will look at `argv[0]` to determine which command to run. But before that, we have to call the syscall `setuid(0)`, with the same gadgets, so `busybox` will not drop our priviliges acquired from the `suid` binary. We chain the exploit up and use `printf` to pipe the output to the `target` binary, and read the flag.
 
 # Intro
 Downloading the zip file and unzipping it on our linux machine (I use kali in WSL), we notice can see the following files:
