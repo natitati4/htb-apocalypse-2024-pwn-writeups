@@ -268,7 +268,7 @@ If you had some experience in shellcoding in linux, you'd probably notice that I
 
 Basically `busybox` is a single executable that has many common linux binaries inside itself, and it's size is minimized. This is typically used on embedded devices with limited resources.
 
-This results in the fact that every other executable on the system, under `/bin`, is just a `symlink` to `busybox`. For example we call `ls`. It will just execute `busybox` instead. But how does busybox know which command was ran in the first place? It looks at `argv[0]`, which contains the exact name used to run the program.
+This results in the fact that every other executable on the system, under `/bin`, is just a `symlink` to `busybox`. For example we call `ls`. It will just execute `busybox` instead. But how does busybox know which command was ran in the first place? It looks at `argv[0]`, which contains the exact name used to run the program. So if we do not provide it... how is `busybox` gonna know what program we want to run?
 
 Now that we understand how busybox box and why our registers need to by the way I presented above, let's start ROPing.
 
