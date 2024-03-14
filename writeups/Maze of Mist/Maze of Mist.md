@@ -305,7 +305,7 @@ The first part of our payload should look like this (I could probably and better
 /bin/sh\x00AAAABBBB\x4c\xde\xff\xff\x00\x00\x00\x00AAAABBBB
 ```
 
-Where we have our 8-length "/bin/sh" string, 8 junk bytes, then our `argv` array begins with a ptr to "/bin/sh", NULL byte that ends the array, and 8 more junk bytes in order to get to the return address.
+Where we have our 8-length "/bin/sh\x00" string, 8 junk bytes, then our `argv` array begins with a ptr to "/bin/sh", NULL byte that ends the array, and 8 more junk bytes in order to get to the return address.
 
 Next - where do we return to first? Let's start with setting eax. As noted before, we first jump to the `xor eax, 0x5b` address. Calculating it's address using the base address of `vdso` we found earlier and the offset of the gadget we also found earlier, we get `0xf7ffc8cc`. Then we have those 3 irrelevant pops in the same gadget which won't affect anything, so let's just pop junk into them. After that comes the `ret`, the next address we return to should be the one of `add al, 0x24`, which is `0xf7ffd5d3`. As noted before, we need to return to it 12 times.
 
