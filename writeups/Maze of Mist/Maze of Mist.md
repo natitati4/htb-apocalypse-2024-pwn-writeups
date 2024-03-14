@@ -285,7 +285,7 @@ But there's not a single `pop eax`. So we have to get creative here. I was able 
 0x000015d3 : add al, 0x24 ; ret
 ```
 
-* I suggest you copy the final exploit into a file (you can use printf and redirect the output to a file), and run the binary in `gdb` with the file as input, for example `run < payload`. This way you can follow along and understand how the magic happens all the way until we get a shell. Be sure to check [One last obstacle](#One-last-obstacle) section to overcome the trouble of pasting the payload directly.
+* I suggest you copy the final exploit into a file (you can use printf and redirect the output to a file), and run the binary in `gdb` with the file as input, for example `run < payload_file`. This way you can follow along and understand how the magic happens all the way until we get a shell. Be sure to check [One last obstacle](#One-last-obstacle) section to overcome the trouble of pasting the payload directly. Remember to redriect to a file rather than pipe to 'target', and remove the `cat`.
 
 We need to get `eax` to be `0xb`. After returning from `_vuln` (which is where our ROP chain will begin) it is 0. If we first `xor` it with `0x5b`, and add `0x24` enough times (because it's `al`, it'll wrap around after getting to `0xff`), we can get `eax` to be `0xb`.
 
